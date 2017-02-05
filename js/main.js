@@ -25,22 +25,22 @@ $(document).ready(function(){
 	//Satelite map layer
   var satMap = L.tileLayer('https://api.mapbox.com/styles/v1/derekoh93/ciyrrbomg00382rpjuxpr3fu4/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZGVyZWtvaDkzIiwiYSI6ImNpeXJteWVjdjAwMjYzMnMxM2NsYnZxb2UifQ.WkKLRw3Mk7pEXoSNfW7B3w', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    maxZoom: 12,
+    maxZoom: 14,
     id: 'https://www.mapbox.com/studio/styles/derekoh93/ciyrrbomg00382rpjuxpr3fu4/',
   });
 	//Street map layer
   var streetMap = L.tileLayer('https://api.mapbox.com/styles/v1/derekoh93/ciyrru9vv001v2rpt3hk8qewz/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZGVyZWtvaDkzIiwiYSI6ImNpeXJteWVjdjAwMjYzMnMxM2NsYnZxb2UifQ.WkKLRw3Mk7pEXoSNfW7B3w', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    maxZoom: 12,
+    maxZoom: 14,
     id: 'https://www.mapbox.com/studio/styles/derekoh93/ciyrru9vv001v2rpt3hk8qewz/'
 });
   //Outdoors map layer
   var outdoorsMap = L.tileLayer('https://api.mapbox.com/styles/v1/derekoh93/ciyrrw7bs002e2rmne4x0uqk2/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZGVyZWtvaDkzIiwiYSI6ImNpeXJteWVjdjAwMjYzMnMxM2NsYnZxb2UifQ.WkKLRw3Mk7pEXoSNfW7B3w', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-	  maxZoom: 12,
+	  maxZoom: 14,
     id: 'https://www.mapbox.com/studio/styles/derekoh93/ciyrrw7bs002e2rmne4x0uqk2/'
 });
-  //Different layers that you can select on the map
+  //Different layers that you can select on the map satellite, streets, and outdoors
   var baseMap = {
     "Satellite": satMap,
     "Streets": streetMap,
@@ -57,14 +57,35 @@ $(document).ready(function(){
   var mapOverlay = {
       "visit": visit
   };
-  //Default position of the map when you start the page up     
+  //Default position and zoom of the map when you start the page up     
   var myMap = L.map('map-container', {
     center: [46.85, -121.78],
-    zoom: 11,
+    zoom: 14,
     layers: [satMap, visit]
+  });
+	
+//Smooth scroll from w3schools
+//This function adds a smooth scroll action when you click buttons at the nav bar
+  $("a").on('click', function(event) {
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+      // Store hash
+      var hash = this.hash;
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
   });
 
   L.control.layers(baseMap, mapOverlay).addTo(myMap);
+	
 })
      
   
